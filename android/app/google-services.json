@@ -1,0 +1,119 @@
+{
+  "project_info": {
+    "project_number": "91049818368",
+    "firebase_url": "https://rubinfo-db-default-rtdb.firebaseio.com",
+    "project_id": "rubinfo-db",
+    "storage_bucket": "rubinfo-db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:91049818368:android:30824a8286818f025b9be5",
+        "android_client_info": {
+          "package_name": "com.example.fireflutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "91049818368-fcsrlbbd54s1lgrditnkhshfrghrcn2g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAf2T7VbLYCw_kOVtlNjCb2JP-E899xQ_k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "91049818368-fcsrlbbd54s1lgrditnkhshfrghrcn2g.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "91049818368-kcf2l442e17dsdan68rj0qh8anv1tlhs.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.rubinfoAlpha"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:91049818368:android:65a7f1edf26b74e45b9be5",
+        "android_client_info": {
+          "package_name": "com.example.testapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "91049818368-fcsrlbbd54s1lgrditnkhshfrghrcn2g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAf2T7VbLYCw_kOVtlNjCb2JP-E899xQ_k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "91049818368-fcsrlbbd54s1lgrditnkhshfrghrcn2g.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "91049818368-kcf2l442e17dsdan68rj0qh8anv1tlhs.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.rubinfoAlpha"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:91049818368:android:1872f9e6a410dcc75b9be5",
+        "android_client_info": {
+          "package_name": "com.hesham.fluttercharts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "91049818368-fcsrlbbd54s1lgrditnkhshfrghrcn2g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAf2T7VbLYCw_kOVtlNjCb2JP-E899xQ_k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "91049818368-fcsrlbbd54s1lgrditnkhshfrghrcn2g.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "91049818368-kcf2l442e17dsdan68rj0qh8anv1tlhs.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.rubinfoAlpha"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
