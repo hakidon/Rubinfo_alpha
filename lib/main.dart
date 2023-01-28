@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttercharts/Screens/HomeScreen.dart';
+import 'package:fluttercharts/Screens/login_page.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
                 print('Error ${snapshot.error.toString()}');
                 return Text('Erorr!');
               } else if (snapshot.hasData) {
-                return HomeScreen();
+                return LoginPage();
               } else {
                 return Center(
                   child: CircularProgressIndicator(),
