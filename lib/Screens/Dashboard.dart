@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttercharts/Screens/HomeScreen.dart';
+import 'package:fluttercharts/Screens/display_record.dart';
 import 'package:fluttercharts/Screens/record_weight.dart';
 
 class Dashboard extends StatefulWidget {
@@ -35,6 +37,8 @@ class _DashboardState extends State<Dashboard> {
                 ),
               ),
             ),
+
+            //Record Weight page
             MaterialButton(
               onPressed: () {
                 Navigator.push(
@@ -44,6 +48,43 @@ class _DashboardState extends State<Dashboard> {
               },
               child: Text(
                 'Record Weight',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              color: Colors.green,
+            ),
+
+            // Display record page
+            MaterialButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DisplayRecord()),
+                );
+              },
+              child: Text(
+                'Display Record',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              color: Colors.green,
+            ),
+
+            // Display prediction page
+            MaterialButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomeScreen()),
+                );
+              },
+              child: Text(
+                'Display prediction',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
               ),
               color: Colors.green,
             ),
