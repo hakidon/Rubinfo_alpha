@@ -32,7 +32,7 @@ dependencies:
   firebase_core: ^2.4.1
   firebase_database: ^10.0.9
   firebase_auth: ^4.2.5
-  intl: ^0.18.0
+  intl: ^0.17.0
   google_fonts:
 
 dev_dependencies:
