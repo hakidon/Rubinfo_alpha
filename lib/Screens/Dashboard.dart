@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttercharts/Screens/record_weight.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard();
@@ -27,7 +28,24 @@ class _DashboardState extends State<Dashboard> {
                 FirebaseAuth.instance.signOut();
               },
               color: Colors.green,
-              child: Text('Sign Out'),
+              child: Text(
+                'Sign Out',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            MaterialButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => RecordWeight()),
+                );
+              },
+              child: Text(
+                'Record Weight',
+              ),
+              color: Colors.green,
             ),
           ],
         ),
