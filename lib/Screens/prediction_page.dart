@@ -14,6 +14,7 @@ class Prediction extends StatefulWidget {
 class _PredictionState extends State<Prediction> {
   final ref = FirebaseDatabase.instance.ref();
   bool _dataLoaded = false;
+  double _gradient;
   var _latest_price = <String, dynamic>{};
   var _predictions = <String, dynamic>{};
   String _price_today = "";
@@ -71,13 +72,32 @@ class _PredictionState extends State<Prediction> {
 
     snapshot = await ref.child('Predictions/').get();
     if (snapshot.exists) {
+      List<Object> prediction = [];
+      prediction = snapshot.value;
+      _predictions = listToMap(prediction);
+
+      double gradient = 0;
+      int prevDay = _predictions[_predictions.keys.toList()[0]]['Day'];
+      double prevPrice = _predictions[_predictions.keys.toList()[0]]['Price'];
+
+      for (int i = 1; i < _predictions.length; i++) {
+        int currDay = _predictions[_predictions.keys.toList()[i]]['Day'];
+        double currPrice = double.parse(
+            _predictions[_predictions.keys.toList()[i]]['Price']
+                .toStringAsFixed(2));
+        gradient += (currPrice - prevPrice) / (currDay - prevDay);
+        prevDay = currDay;
+        prevPrice = currPrice;
+      }
+
+      // Divide by number of data points to get average gradient
+      gradient /= _predictions.length - 1;
+
       setState(() {
-        List<Object> prediction = [];
-        prediction = snapshot.value;
-        _predictions = listToMap(prediction);
         // double aa = double.parse(sourceString);
         _prediction_today = _predictions[_predictions.keys.toList()[1]]['Price']
             .toStringAsFixed(2);
+        _gradient = gradient;
       });
     }
     setState(() {
@@ -98,6 +118,7 @@ class _PredictionState extends State<Prediction> {
         child: CircularProgressIndicator(),
       );
     } else {
+      print(_gradient);
       return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -166,6 +187,33 @@ class _PredictionState extends State<Prediction> {
                   padding: const EdgeInsets.all(15.0),
                   child: Text(
                     'Next prediction: \RM$_prediction_today',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 35.0),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 30.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  border: Border.all(
+                    color: _gradient > 0.1
+                        ? Colors.green
+                        : _gradient < -0.1
+                            ? Colors.red
+                            : Color.lerp(Colors.yellow, Colors.blue, 0.5),
+                    width: 5.0,
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Text(
+                    'Predicted market trend: ${_gradient > 0.1 ? 'Bullish' : _gradient < -0.1 ? 'Bearish' : 'Stagnant'}',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 20,
