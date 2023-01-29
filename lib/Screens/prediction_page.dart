@@ -63,10 +63,10 @@ class _PredictionState extends State<Prediction> {
       setState(() {
         _latest_price = jsonDecode(jsonEncode(snapshot.value));
         _latest_price = sortMap(_latest_price);
-        _price_today =
-            _latest_price[_latest_price.keys.toList()[_latest_price.length - 1]]
-                    ['Bulk Latex']
-                .toStringAsFixed(2);
+        _price_today = (_latest_price[_latest_price.keys
+                    .toList()[_latest_price.length - 1]]['Bulk Latex'] /
+                100)
+            .toStringAsFixed(2);
       });
     }
 
