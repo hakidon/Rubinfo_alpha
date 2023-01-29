@@ -152,6 +152,7 @@ class _RecordWeightState extends State<RecordWeight> {
                   SizedBox(
                     height: 30,
                   ),
+
                   // Total Price
                   Container(
                     child: Row(
@@ -169,16 +170,17 @@ class _RecordWeightState extends State<RecordWeight> {
                     ),
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.green.withOpacity(0.3),
-                            spreadRadius: 3,
-                            blurRadius: 5,
-                            offset: Offset(3, 3),
-                          )
-                        ]),
+                      borderRadius: BorderRadius.circular(12),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.green.withOpacity(0.3),
+                          spreadRadius: 3,
+                          blurRadius: 5,
+                          offset: Offset(3, 3),
+                        )
+                      ],
+                    ),
                   ),
 
                   SizedBox(
@@ -204,6 +206,9 @@ class _RecordWeightState extends State<RecordWeight> {
                     validator: (value) {
                       if (value.isEmpty) {
                         return 'Please enter rubber  weight first';
+                      }
+                      if (double.tryParse(value) == null) {
+                        return 'Please enter a valid number';
                       }
                       return null;
                     },

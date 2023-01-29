@@ -37,38 +37,42 @@ class _DisplayRecordState extends State<DisplayRecord> {
             return ListView.builder(
               itemCount: weights.length,
               itemBuilder: (context, index) {
-                return Card(
-                  child: ListTile(
-                    leading: SizedBox(
-                      child: Image.asset('images/contract.png'),
-                      width: 40,
-                    ),
-                    title: Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                              text: 'Weight: ',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                          TextSpan(text: '${weights[index].weight} kg, \n'),
-                          TextSpan(
-                              text: 'Total Price : ',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                          TextSpan(
-                            text: 'RM${weights[index].totalPrice}',
-                          ),
-                        ],
+                return Container(
+                  margin: EdgeInsets.symmetric(vertical: 5),
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Card(
+                    child: ListTile(
+                      leading: SizedBox(
+                        child: Image.asset('images/contract.png'),
+                        width: 40,
                       ),
-                    ),
-                    subtitle: Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                              text: 'Date: ',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                          TextSpan(
-                            text: '${weights[index].timestamp}',
-                          ),
-                        ],
+                      title: Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                                text: 'Weight: ',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            TextSpan(text: '${weights[index].weight} kg, \n'),
+                            TextSpan(
+                                text: 'Total Price : ',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            TextSpan(
+                              text: 'RM${weights[index].totalPrice}',
+                            ),
+                          ],
+                        ),
+                      ),
+                      subtitle: Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                                text: 'Date: ',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            TextSpan(
+                              text: '${weights[index].timestamp}',
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
