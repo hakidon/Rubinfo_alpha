@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:email_validator/email_validator.dart';
 
 class RegisterPage extends StatefulWidget {
   final VoidCallback showLoginPage;
@@ -23,21 +24,57 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Future signUp() async {
-    if (passwordConfirmed()) {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-      );
+    if (EmailValidator.validate(_emailController.text) &&
+        _passwordController.text.isNotEmpty &&
+        _confirmPasswordController.text.isNotEmpty) {
+      if (passwordConfirmed()) {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
+        );
+      } else if (_passwordController.text.length < 6) {
+        showErrorMessage("Passwords must be atleast 6 characters.");
+      } else {
+        showErrorMessage("Your password do not match.");
+      }
+    } else if (!EmailValidator.validate(_emailController.text)) {
+      showErrorMessage("Please enter a valid email.");
+    } else {
+      showErrorMessage("Please enter your password.");
     }
   }
 
   bool passwordConfirmed() {
-    if (_passwordController.text.trim() ==
-        _confirmPasswordController.text.trim()) {
-      return true;
+    if (_passwordController.text.length >= 6) {
+      if (_passwordController.text.trim() ==
+          _confirmPasswordController.text.trim()) {
+        return true;
+      } else {
+        return false;
+      }
     } else {
       return false;
     }
+  }
+
+  void showErrorMessage(String text) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Error"),
+          content: Text(text),
+          actions: <Widget>[
+            ElevatedButton(
+              child: Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
