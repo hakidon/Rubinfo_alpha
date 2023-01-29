@@ -37,10 +37,41 @@ class _DisplayRecordState extends State<DisplayRecord> {
             return ListView.builder(
               itemCount: weights.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(
-                      'Weight: ${weights[index].weight} kg,  Total Price : RM${weights[index].totalPrice}'),
-                  subtitle: Text('Date: ${weights[index].timestamp}'),
+                return Card(
+                  child: ListTile(
+                    leading: SizedBox(
+                      child: Image.asset('images/contract.png'),
+                      width: 40,
+                    ),
+                    title: Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                              text: 'Weight: ',
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          TextSpan(text: '${weights[index].weight} kg, \n'),
+                          TextSpan(
+                              text: 'Total Price : ',
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          TextSpan(
+                            text: 'RM${weights[index].totalPrice}',
+                          ),
+                        ],
+                      ),
+                    ),
+                    subtitle: Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                              text: 'Date: ',
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          TextSpan(
+                            text: '${weights[index].timestamp}',
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 );
               },
             );
