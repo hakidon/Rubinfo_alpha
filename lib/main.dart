@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttercharts/Screens/Dashboard.dart';
-import 'package:fluttercharts/Screens/HomeScreen.dart';
+import 'package:fluttercharts/Screens/auth_page.dart';
 import 'package:fluttercharts/Screens/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -47,7 +47,7 @@ class MainPage extends StatelessWidget {
           if (snapshot.hasData) {
             return Dashboard();
           } else {
-            return LoginPage();
+            return AuthPage();
           }
         },
       ),

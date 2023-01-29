@@ -40,7 +40,7 @@ class _RecordWeightState extends State<RecordWeight> {
                 if (_formKey.currentState.validate()) {
                   final user = _auth.currentUser;
                   if (user != null) {
-                    _insertWeight(user.email);
+                    _insertWeight(user.uid);
                   } else {
                     print('User is not logged in');
                   }
@@ -59,11 +59,7 @@ class _RecordWeightState extends State<RecordWeight> {
     final databaseReference = FirebaseDatabase.instance.ref();
     var now = DateTime.now();
     var dateOnly = DateFormat("yyyy-MM-dd").format(now);
-    databaseReference
-        .child("Weight")
-        .child(email.replaceAll(".", ","))
-        .push()
-        .set({
+    databaseReference.child("Weight").child(email).push().set({
       'weight': weight,
       'timestamp': dateOnly,
     });
