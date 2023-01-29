@@ -125,7 +125,7 @@ class _PredictionState extends State<Prediction> {
           backgroundColor: Theme.of(context).primaryColor,
           centerTitle: true,
           title: Text(
-            'Rubinfo alpha',
+            'Rubber Price Predictions',
             style: TextStyle(
               fontSize: 20,
             ),
@@ -144,54 +144,56 @@ class _PredictionState extends State<Prediction> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(30.0),
               child: LineChartSample(_latest_price, _predictions),
             ),
             SizedBox(
               height: 20,
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  border: Border.all(
-                    color: Colors.blue,
-                    width: 5.0,
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Text(
-                    'Bulk latex price today: \RM$_price_today',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 50),
+              padding: EdgeInsets.symmetric(vertical: 20),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20.0),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.green.withOpacity(0.3),
+                    spreadRadius: 3,
+                    blurRadius: 5,
+                    offset: Offset(3, 3),
+                  )
+                ],
+              ),
+              child: Text(
+                'Bulk latex price today: \RM$_price_today',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 18,
                 ),
               ),
             ),
-            SizedBox(height: 10.0),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  border: Border.all(
-                    color: Colors.blue,
-                    width: 5.0,
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Text(
-                    'Next prediction: \RM$_prediction_today',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
+            SizedBox(height: 15.0),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 50),
+              padding: EdgeInsets.symmetric(vertical: 20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.green.withOpacity(0.3),
+                    spreadRadius: 3,
+                    blurRadius: 5,
+                    offset: Offset(3, 3),
+                  )
+                ],
+              ),
+              child: Text(
+                'Next prediction: \RM$_prediction_today',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 20,
                 ),
               ),
             ),

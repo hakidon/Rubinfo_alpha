@@ -10,6 +10,9 @@ class DisplayRecord extends StatefulWidget {
 }
 
 class _DisplayRecordState extends State<DisplayRecord> {
+  // Declare a variable to hold the search query
+  String _searchQuery;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,37 +20,111 @@ class _DisplayRecordState extends State<DisplayRecord> {
         backgroundColor: Theme.of(context).primaryColor,
         title: Text('Display Record'),
       ),
-      body: StreamBuilder<dynamic>(
-        stream: FirebaseDatabase.instance
-            .ref()
-            .child("Weight")
-            .child(FirebaseAuth.instance.currentUser.uid)
-            .onValue,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            Map<dynamic, dynamic> values = snapshot.data.snapshot.value;
-            List<Weight> weights = [];
-            if (values != null) {
-              values.forEach((key, value) {
-                Weight weight = Weight.fromJson(value);
-                weight.key = key;
-                weights.add(weight);
-              });
-            }
-            return ListView.builder(
-              itemCount: weights.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(
-                      'Weight: ${weights[index].weight} kg,  Total Price : RM${weights[index].totalPrice}'),
-                  subtitle: Text('Date: ${weights[index].timestamp}'),
-                );
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: TextField(
+              decoration: InputDecoration(
+                prefixIcon: Icon(
+                  Icons.search,
+                ),
+                hintText: 'Search Record',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+              onChanged: (value) {
+                setState(() {
+                  _searchQuery = value;
+                });
               },
-            );
-          } else {
-            return Center(child: CircularProgressIndicator());
-          }
-        },
+            ),
+          ),
+          Expanded(
+            child: StreamBuilder<dynamic>(
+              stream: FirebaseDatabase.instance
+                  .ref()
+                  .child("Weight")
+                  .child(FirebaseAuth.instance.currentUser.uid)
+                  .onValue,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  Map<dynamic, dynamic> values = snapshot.data.snapshot.value;
+                  List<Weight> weights = [];
+                  if (values != null) {
+                    values.forEach((key, value) {
+                      Weight weight = Weight.fromJson(value);
+                      weight.key = key;
+                      weights.add(weight);
+                    });
+                  }
+                  // Filter the weights list based on the search query
+                  if (_searchQuery != null) {
+                    weights = weights.where((weight) {
+                      return weight.weight.toString().contains(_searchQuery) ||
+                          weight.timestamp
+                              .toLowerCase()
+                              .contains(_searchQuery) ||
+                          weight.totalPrice.toString().contains(_searchQuery);
+                    }).toList();
+                  }
+                  return ListView.builder(
+                    itemCount: weights.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: EdgeInsets.symmetric(vertical: 5),
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: Card(
+                          child: ListTile(
+                            leading: SizedBox(
+                              child: Image.asset('images/contract.png'),
+                              width: 40,
+                            ),
+                            title: Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(
+                                      text: 'Weight: ',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                  TextSpan(
+                                      text: '${weights[index].weight} kg, \n'),
+                                  TextSpan(
+                                      text: 'Total Price : ',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                  TextSpan(
+                                    text: 'RM${weights[index].totalPrice}',
+                                  ),
+                                ],
+                              ),
+                            ),
+                            subtitle: Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(
+                                      text: 'Date: ',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                  TextSpan(
+                                    text: '${weights[index].timestamp}',
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                } else {
+                  return Center(child: CircularProgressIndicator());
+                }
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
