@@ -137,8 +137,9 @@ class _DashboardState extends State<Dashboard> {
                   .toList()[_latest_update.length - 1]]['Bulk Latex'] /
               100)
           .toStringAsFixed(3));
-      if (price_today >= _user_threshold && _user_threshold != 0)
+      if (price_today >= _user_threshold && _user_threshold != 0) {
         showNotification(_user_threshold.toString(), price_today.toString());
+      }
 
       setState(() {
         _price_today = price_today.toString();
@@ -159,8 +160,9 @@ class _DashboardState extends State<Dashboard> {
           double.parse(threshold_update_json['threshold'].toStringAsFixed(2));
       if (threshold_update <= double.parse(_price_today) &&
           double.parse(_price_today) != 0 &&
-          threshold_update != 0)
+          threshold_update != 0) {
         showNotification(threshold_update.toString(), _price_today.toString());
+      }
 
       setState(() {
         _user_threshold = threshold_update;
