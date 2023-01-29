@@ -2,22 +2,19 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class LineChartSample extends StatefulWidget {
+class LineChartSampleDashboard extends StatefulWidget {
   var _latest_price = <String, dynamic>{};
-  var _predictions = <String, dynamic>{};
-  LineChartSample(
-      Map<String, dynamic> latest_price, Map<String, dynamic> predictions) {
+  LineChartSampleDashboard(Map<String, dynamic> latest_price) {
     _latest_price = latest_price;
-    _predictions = predictions;
   }
 
   @override
-  _LineChartSampleState createState() => _LineChartSampleState();
+  _LineChartSampleStateDashboard createState() =>
+      _LineChartSampleStateDashboard();
 }
 
-class _LineChartSampleState extends State<LineChartSample> {
+class _LineChartSampleStateDashboard extends State<LineChartSampleDashboard> {
   var _latest_price;
-  var _predictions;
 
   double getDay(String date) {
     List<String> dateList = date.split("/");
@@ -29,7 +26,6 @@ class _LineChartSampleState extends State<LineChartSample> {
   void initState() {
     super.initState();
     _latest_price = widget._latest_price;
-    _predictions = widget._predictions;
     setSpot();
   }
 
@@ -38,15 +34,7 @@ class _LineChartSampleState extends State<LineChartSample> {
     const Color(0xff87CEEB),
   ];
 
-  List<Color> predColors = [
-    Color.fromRGBO(242, 52, 5, 1),
-    Color.fromARGB(255, 255, 115, 0),
-  ];
-
   List<FlSpot> spots = [];
-
-  //Need to be odd length
-  List<FlSpot> spots2 = [];
 
   // List<FlSpot> spots = [FlSpot(0, 0)];
 
@@ -75,18 +63,11 @@ class _LineChartSampleState extends State<LineChartSample> {
             double.parse(
                 (_latest_price[key]['Bulk Latex'] / 100).toStringAsFixed(2))));
       }
-
-      for (String key in _predictions.keys) {
-        spots2.add(FlSpot(
-            (_predictions[key]['Day'].toDouble() + last_day),
-            double.parse(
-                (_predictions[key]['Price'] / 100).toStringAsFixed(2))));
-      }
     });
   }
 
   List<double> get_min_max_y_val() {
-    List<FlSpot> allSpots = spots + spots2;
+    List<FlSpot> allSpots = spots;
     double highestYValue = double.negativeInfinity;
     double lowestYValue = double.infinity;
 
@@ -156,9 +137,7 @@ class _LineChartSampleState extends State<LineChartSample> {
                       fontSize: 15,
                     ),
                 getTitles: (x) {
-                  if (x == spots2[(spots2.length / 2).toInt()].x)
-                    return "15 days\npredictions";
-                  else if (x == spots[(spots.length / 2).toInt()].x) {
+                  if (x == spots[(spots.length / 2).toInt()].x) {
                     if (spots.length == 2 || spots.length == 1)
                       return "";
                     else
@@ -179,7 +158,7 @@ class _LineChartSampleState extends State<LineChartSample> {
                   return y.toStringAsFixed(1);
                 })),
         minX: spots[0].x,
-        maxX: spots2[spots2.length - 1].x,
+        maxX: spots[spots.length - 1].x,
         minY: lowestY,
         maxY: highestY,
         gridData: FlGridData(
@@ -243,18 +222,6 @@ class _LineChartSampleState extends State<LineChartSample> {
               belowBarData: BarAreaData(
                 show: true,
                 colors: valColors.map((e) => e.withOpacity(0.3)).toList(),
-              ),
-              dotData: FlDotData(
-                show: true,
-              )),
-          LineChartBarData(
-              spots: spots2,
-              isCurved: true,
-              colors: predColors,
-              barWidth: 5,
-              belowBarData: BarAreaData(
-                show: true,
-                colors: predColors.map((e) => e.withOpacity(0.3)).toList(),
               ),
               dotData: FlDotData(
                 show: true,
