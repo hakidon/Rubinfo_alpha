@@ -70,13 +70,17 @@ class _LineChartSampleState extends State<LineChartSample> {
     setState(() {
       // print(last_day);
       for (String key in _latest_price.keys) {
-        spots.add(FlSpot(getDay(_latest_price[key]['Date']),
-            (_latest_price[key]['Bulk Latex']).toDouble()));
+        spots.add(FlSpot(
+            getDay(_latest_price[key]['Date']),
+            double.parse(
+                (_latest_price[key]['Bulk Latex'] / 100).toStringAsFixed(2))));
       }
 
       for (String key in _predictions.keys) {
-        spots2.add(FlSpot((_predictions[key]['Day'].toDouble() + last_day),
-            double.parse((_predictions[key]['Price']).toStringAsFixed(2))));
+        spots2.add(FlSpot(
+            (_predictions[key]['Day'].toDouble() + last_day),
+            double.parse(
+                (_predictions[key]['Price'] / 100).toStringAsFixed(2))));
       }
     });
   }
@@ -94,8 +98,7 @@ class _LineChartSampleState extends State<LineChartSample> {
       }
     }
 
-    lowestYValue = (lowestYValue ~/ 10 * 10).toDouble();
-
+    lowestYValue = (lowestYValue).toDouble();
     return [lowestYValue, highestYValue];
   }
 
@@ -133,15 +136,6 @@ class _LineChartSampleState extends State<LineChartSample> {
     return lastDay;
   }
 
-  // int getInterval(double highest) {
-  //   double interval = 1;
-  //   while (highest >= interval) {
-  //     highest = highest / interval;
-  //     interval *= 10;
-  //   }
-  //   return (interval / 10).floor().toInt();
-  // }
-
   @override
   Widget build(BuildContext context) {
     // print(spots);
@@ -174,7 +168,7 @@ class _LineChartSampleState extends State<LineChartSample> {
                 }),
             leftTitles: SideTitles(
                 interval:
-                    10, //-------------------------------------------------------------------------------
+                    0.1, //-------------------------------------------------------------------------------
                 showTitles: true,
                 getTextStyles: (val) => const TextStyle(
                       color: Colors.grey,
@@ -182,12 +176,24 @@ class _LineChartSampleState extends State<LineChartSample> {
                       fontSize: 15,
                     ),
                 getTitles: (y) {
-                  return y.toInt().toString();
+                  return y.toStringAsFixed(1);
                 })),
         minX: spots[0].x,
         maxX: spots2[spots2.length - 1].x,
         minY: lowestY,
         maxY: highestY,
+        gridData: FlGridData(
+          show: true,
+          drawHorizontalLine: true,
+          horizontalInterval: 0.1,
+          getDrawingHorizontalLine: (value) {
+            return FlLine(color: Colors.grey, strokeWidth: 0.8);
+          },
+          checkToShowHorizontalLine: (value) {
+            return true;
+          },
+          drawVerticalLine: false,
+        ),
         lineTouchData: LineTouchData(
             touchTooltipData: LineTouchTooltipData(
           getTooltipItems: (List<LineBarSpot> lineBarsSpot) {
