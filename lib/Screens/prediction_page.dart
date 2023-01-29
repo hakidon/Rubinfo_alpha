@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:fluttercharts/charts/LineChartSample.dart';
 import 'package:intl/intl.dart';
 
-class HomeScreen extends StatefulWidget {
+class Prediction extends StatefulWidget {
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _PredictionState createState() => _PredictionState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _PredictionState extends State<Prediction> {
   final ref = FirebaseDatabase.instance.ref();
   bool _dataLoaded = false;
   var _latest_price = <String, dynamic>{};
@@ -67,11 +67,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ['Bulk Latex']
                 .toStringAsFixed(2);
       });
-
-      // for (String key in latest_price.keys) {
-      //   print(getDateComponents(
-      //       DateFormat.d().parse(latest_price[key]['Date']))[0]);
-      // }
     }
 
     snapshot = await ref.child('Predictions/').get();
@@ -88,7 +83,6 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _dataLoaded = true;
     });
-    // setSpot(latest_price, predictions);
   }
 
   @override
