@@ -158,7 +158,8 @@ class _DashboardState extends State<Dashboard> {
       double threshold_update =
           double.parse(threshold_update_json['threshold'].toStringAsFixed(2));
       if (threshold_update <= double.parse(_price_today) &&
-          double.parse(_price_today) != 0)
+          double.parse(_price_today) != 0 &&
+          threshold_update != 0)
         showNotification(threshold_update.toString(), _price_today.toString());
 
       setState(() {
