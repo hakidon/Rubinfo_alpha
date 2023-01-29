@@ -14,6 +14,7 @@ class _DisplayRecordState extends State<DisplayRecord> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
         title: Text('Display Record'),
       ),
       body: StreamBuilder<dynamic>(

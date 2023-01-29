@@ -110,66 +110,78 @@ class _RecordWeightState extends State<RecordWeight> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Record Weight'),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(30),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              TextFormField(
-                onChanged: (value) => setState(() {
-                  weight = double.parse(value);
-                  totalPrice = weight * double.parse(_price_today);
-                }),
-                controller: _weightController,
-                decoration: InputDecoration(labelText: 'Weight (kg)'),
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Please enter your weight';
-                  }
-                  return null;
-                },
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  if (_formKey.currentState.validate()) {
-                    final user = _auth.currentUser;
-                    if (user != null) {
-                      _insertWeight(user.uid);
-                    } else {
-                      print('User is not logged in');
-                    }
-                  }
-                },
-                child: Text('Submit'),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              // Price today container
-              Container(
-                child: Text("Price today : RM $_price_today"),
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: Colors.grey[200],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(30),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // Price today container
+                Container(
+                  child: Text("Rubber price today : RM $_price_today"),
+                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.green.withOpacity(0.3),
+                          spreadRadius: 3,
+                          blurRadius: 5,
+                          offset: Offset(3, 3),
+                        )
+                      ]),
                 ),
-              ),
 
-              SizedBox(
-                height: 30,
-              ),
-              // Total Price
-              Container(
-                child: Text("Total Price: RM $totalPrice"),
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: Colors.grey[200],
+                SizedBox(
+                  height: 30,
                 ),
-              ),
-            ],
+                // Total Price
+                Container(
+                  child: Text("Total Price: RM $totalPrice"),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: Colors.grey[200],
+                  ),
+                ),
+                TextFormField(
+                  onChanged: (value) => setState(() {
+                    weight = double.parse(value);
+                    totalPrice = weight * double.parse(_price_today);
+                  }),
+                  controller: _weightController,
+                  decoration: InputDecoration(labelText: 'Weight (kg)'),
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Please enter your weight';
+                    }
+                    return null;
+                  },
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    if (_formKey.currentState.validate()) {
+                      final user = _auth.currentUser;
+                      if (user != null) {
+                        _insertWeight(user.uid);
+                      } else {
+                        print('User is not logged in');
+                      }
+                    }
+                  },
+                  child: Text('Submit'),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+              ],
+            ),
           ),
         ),
       ),

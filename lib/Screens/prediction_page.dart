@@ -122,7 +122,7 @@ class _PredictionState extends State<Prediction> {
       return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: Colors.blue,
+          backgroundColor: Theme.of(context).primaryColor,
           centerTitle: true,
           title: Text(
             'Rubinfo alpha',
