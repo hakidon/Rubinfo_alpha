@@ -37,7 +37,8 @@ class _DisplayRecordState extends State<DisplayRecord> {
               itemCount: weights.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: Text('Weight: ${weights[index].weight} kg'),
+                  title: Text(
+                      'Weight: ${weights[index].weight} kg,  Total Price : RM${weights[index].totalPrice}'),
                   subtitle: Text('Date: ${weights[index].timestamp}'),
                 );
               },
@@ -52,16 +53,18 @@ class _DisplayRecordState extends State<DisplayRecord> {
 }
 
 class Weight {
-  int weight;
+  double weight;
+  double totalPrice;
   String timestamp;
   String key;
 
-  Weight({this.weight, this.timestamp});
+  Weight({this.weight, this.timestamp, this.totalPrice});
 
   factory Weight.fromJson(Map<dynamic, dynamic> json) {
     return Weight(
-      weight: json['weight'],
+      weight: double.parse(json['weight'].toString()),
       timestamp: json['timestamp'] as String,
+      totalPrice: double.parse(json['totalPrice'].toString()),
     );
   }
 }
