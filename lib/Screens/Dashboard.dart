@@ -6,6 +6,7 @@ import 'package:fluttercharts/Screens/prediction_page.dart';
 import 'package:fluttercharts/Screens/display_record.dart';
 import 'package:fluttercharts/Screens/record_weight.dart';
 import 'package:intl/intl.dart';
+import 'package:fluttercharts/charts/LineChartSample.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard();
