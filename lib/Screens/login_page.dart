@@ -44,6 +44,7 @@ class _LoginPageState extends State<LoginPage> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
             ),
           ],
         );

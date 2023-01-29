@@ -63,10 +63,10 @@ class _PredictionState extends State<Prediction> {
       setState(() {
         _latest_price = jsonDecode(jsonEncode(snapshot.value));
         _latest_price = sortMap(_latest_price);
-        _price_today =
-            _latest_price[_latest_price.keys.toList()[_latest_price.length - 1]]
-                    ['Bulk Latex']
-                .toStringAsFixed(2);
+        _price_today = (_latest_price[_latest_price.keys
+                    .toList()[_latest_price.length - 1]]['Bulk Latex'] /
+                100)
+            .toStringAsFixed(2);
       });
     }
 
@@ -95,8 +95,9 @@ class _PredictionState extends State<Prediction> {
 
       setState(() {
         // double aa = double.parse(sourceString);
-        _prediction_today = _predictions[_predictions.keys.toList()[1]]['Price']
-            .toStringAsFixed(2);
+        _prediction_today =
+            (_predictions[_predictions.keys.toList()[1]]['Price'] / 100)
+                .toStringAsFixed(2);
         _gradient = gradient;
       });
     }
@@ -118,7 +119,6 @@ class _PredictionState extends State<Prediction> {
         child: CircularProgressIndicator(),
       );
     } else {
-      print(_gradient);
       return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(

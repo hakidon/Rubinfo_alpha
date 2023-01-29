@@ -72,6 +72,7 @@ class _RegisterPageState extends State<RegisterPage> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
             ),
           ],
         );
